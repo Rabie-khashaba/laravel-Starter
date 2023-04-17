@@ -18,7 +18,7 @@
                </tr>
                </thead>
                <tbody>
-               @if(isset($doctors) && $doctors -> count() > 0)
+               @if(isset($doctors) && $doctors -> count() > 0 )
                    @foreach($doctors as $doctor)
                        <tr>
                            <th scope="row">{{$doctor ->id}}</th>

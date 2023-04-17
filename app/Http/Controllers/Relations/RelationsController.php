@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Models\Hospital;
 use App\Models\Phone;
+use App\Models\Service;
 use App\Models\User;
 use http\Env\Request;
 
@@ -104,8 +105,6 @@ class RelationsController extends Controller
 
 
     }
-
-
     public function getHospitalData(){
 
         $hospitals = Hospital::select('id' ,'name', 'address')->get();
@@ -157,4 +156,35 @@ class RelationsController extends Controller
 
     }
     //////// End one to many ///////////////////////
+
+
+    //////// Start many to many ///////////////////////
+
+    public  function getDoctorServices(){
+//        $doctor =  Doctor::find(3);
+//        return $doctor->services;
+
+        $doctor =  Doctor::with('services')->find(3);
+        $services = $doctor -> services;
+
+        foreach ($services as $service){
+            echo $service-> name .'<br>';
+        }
+
+    }
+
+
+    public function getDoctorByServices(){
+
+        $services = Service::with(['doctors'=>function($q){
+            $q -> select('doctors.id','name','title');
+        }])->find(1);
+
+        return $services;
+        //return $services -> doctors; // all data of doctors
+
+
+
+    }
+    //////// End many to many ///////////////////////
 }

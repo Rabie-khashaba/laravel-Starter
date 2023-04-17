@@ -128,6 +128,10 @@ Route::get('hospital_has_doctors_male' ,[RelationsController::class , 'getHospit
 
 Route::get('hospital_Not_has_doctors' ,[RelationsController::class , 'getHospitalNotHasDoctors']);
 
+/////////////many to many
+Route::get('doctor_services',[RelationsController::class , 'getDoctorServices']);
+Route::get('doctor_by_services',[RelationsController::class , 'getDoctorByServices']);
+
 
 ################## End Relations Routes ##################
 
