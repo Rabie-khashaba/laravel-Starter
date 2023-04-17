@@ -24,7 +24,7 @@
                         <td>{!!$hospital ->address!!}</td>
                         <td>
                             <a href="{{route('hospitals.doctors',$hospital -> id)}}" class="btn btn-success">{{__('messages.doctors show')}}</a>
-                            <a href="#" class="btn btn-danger">{{__('messages.delete')}}</a>
+                            <a href="{{route('delete.hospital' , $hospital -> id)}}" class="btn btn-danger">{{__('messages.delete')}}</a>
                         </td>
                     </tr>
                 @endforeach

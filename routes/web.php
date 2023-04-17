@@ -115,8 +115,9 @@ Route::get('hospital-has-many' ,[RelationsController::class , 'getHospitalDoctor
 //send data to view
 Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], // to make redirect if language not found
 function() {
-        Route::get('hospitals' ,[RelationsController::class , 'getHospitalData']);
+        Route::get('hospitals' ,[RelationsController::class , 'getHospitalData'])->name('hospitals.all');
         Route::get('doctor/{hospital_id}' ,[RelationsController::class , 'hospitalDoctors'])->name('hospitals.doctors');
+        Route::get('hospitals/{hospital_id}' ,[RelationsController::class , 'deleteHospital'])->name('delete.hospital');
 });
 
 

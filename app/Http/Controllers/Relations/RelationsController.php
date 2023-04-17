@@ -129,7 +129,8 @@ class RelationsController extends Controller
     }
 
     public function getHospitalHasDoctorsMale(){
-        $hospitals = Hospital::with('doctors')->whereHas('doctors', function($q){
+        //$hospitals = Hospital::whereHas('doctors', function($q){ // get first one just
+        $hospitals = Hospital::with('doctors')->whereHas('doctors', function($q){ // get all doctors male and his hospital
             $q -> where('gender' , 'male');
         })->get();
         return response() -> json($hospitals);
@@ -140,5 +141,20 @@ class RelationsController extends Controller
 
     }
 
+    //delete hospital with its doctors
+    public function deleteHospital($hospital_id){
+
+        // findOrFail(id) ===> check in DB and if not found return error 404
+        $hospital = Hospital::find($hospital_id);
+
+        if(!$hospital)
+            return abort('404');
+
+        $hospital -> doctors() -> delete();
+        $hospital -> delete();
+
+        return redirect()->route('hospitals.all');
+
+    }
     //////// End one to many ///////////////////////
 }
