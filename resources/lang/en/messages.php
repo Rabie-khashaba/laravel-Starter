@@ -52,5 +52,8 @@ return [
     'Name doctor' => 'Name doctor',
     'Address doctor' => 'Address doctor',
     'gender' => 'gender',
-
+    'services' => 'services',
+    'services doctor' => 'Services',
+    'choose doctor' => 'choose doctor',
+    'choose services' => 'choose services',
 ];

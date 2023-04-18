@@ -133,6 +133,15 @@ Route::get('doctor_services',[RelationsController::class , 'getDoctorServices'])
 Route::get('doctor_by_services',[RelationsController::class , 'getDoctorByServices']);
 
 
+
+Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]], // to make redirect if language not found
+    function() {
+        Route::get('doctor/services/{doctor_id}',[RelationsController::class , 'doctorServicesView'])->name('doctor.services');
+        Route::post('saveServices-to-doctor',[RelationsController::class , 'saveServicesToDoctor'])->name('save.doctors.services');
+    });
+
+
+
 ################## End Relations Routes ##################
 
 

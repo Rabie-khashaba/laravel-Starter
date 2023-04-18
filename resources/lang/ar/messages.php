@@ -54,6 +54,12 @@ return [
     'Name doctor' => 'اسم الدكتور' ,
     'Address doctor' => 'عنوان الدكتور' ,
     'gender' => 'النوع',
+    'services' => 'التخصص',
+    'services doctor' => 'خدمه الدكتور' ,
+    'choose doctor' => 'اختر طبيب',
+    'choose services' => 'اختر خدمه',
+
+
 
 
 

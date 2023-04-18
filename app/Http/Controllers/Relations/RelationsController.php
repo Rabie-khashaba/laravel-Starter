@@ -8,7 +8,7 @@ use App\Models\Hospital;
 use App\Models\Phone;
 use App\Models\Service;
 use App\Models\User;
-use http\Env\Request;
+use Illuminate\Http\Request;
 
 class RelationsController extends Controller
 {
@@ -118,6 +118,7 @@ class RelationsController extends Controller
         $hospital = Hospital::with('doctors')->find($hospital_id);
         $doctors = $hospital -> doctors;
 
+
         return view('doctors.doctors' , compact('doctors'));
     }
 
@@ -183,8 +184,31 @@ class RelationsController extends Controller
         return $services;
         //return $services -> doctors; // all data of doctors
 
+    }
+
+    // services of doctor in view
+    public function doctorServicesView($doctor_id){
+        $doctor = Doctor::with('services')->find($doctor_id);
+
+        $services = $doctor -> services;
+
+        $doctors = Doctor::select('id' , 'name' )->get();
+        $allServices = Service::select('id' , 'name' )->get();
+
+        return view('doctors.services',compact('services' ,'doctors' , 'allServices'));
+    }
 
 
+    //save services to doctors
+
+    public function saveServicesToDoctor(Request $request){
+
+
+        $doctor = Doctor::find($request->doctor_id);
+        if (!$doctor)
+            return abort('404');
+        $doctor ->services()-> attach($request -> servicesIds);  // many to many insert to database
+        return 'Success';
     }
     //////// End many to many ///////////////////////
 }
