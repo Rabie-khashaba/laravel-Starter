@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Relations;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
 use App\Models\Doctor;
 use App\Models\Hospital;
+use App\Models\Patient;
 use App\Models\Phone;
 use App\Models\Service;
 use App\Models\User;
@@ -207,8 +209,42 @@ class RelationsController extends Controller
         $doctor = Doctor::find($request->doctor_id);
         if (!$doctor)
             return abort('404');
-        $doctor ->services()-> attach($request -> servicesIds);  // many to many insert to database
+        //$doctor ->services()-> attach($request -> servicesIds);  // many to many insert to database
+        //$doctor ->services()-> sync($request -> servicesIds);  // add data but not duplicate existed data (Remove old data and save new data  // update)
+        $doctor ->services()-> syncWithoutDetaching($request -> servicesIds); // add data into old data but old data not affect
         return 'Success';
     }
     //////// End many to many ///////////////////////
+    ///
+    ///
+    ///
+    ////////////// Has one Through
+
+    public function getPatientDoctor(){
+
+//        $patient = Patient::with('doctor')->find(2);
+//        return $patient; // return patient with his doctor
+
+        $patient = Patient::find(2);
+        return $patient -> doctor;
+    }
+
+    ////////// Has many Through
+
+    public function getDoctorCountry(){
+
+        $country = Country::find(1);
+        return $country -> doctors ;
+    }
+
+    public function getCountryWithDoctor(){
+        $country = Country::with('doctors')->find(1);
+        return $country ;
+    }
+
+    public function getHospitalsCountry(){
+        $country = Country::find(1);
+        return $country -> hospitals ;
+    }
+
 }

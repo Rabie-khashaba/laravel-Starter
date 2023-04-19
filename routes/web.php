@@ -142,6 +142,20 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),'middleware' => [ 'lo
 
 
 
+/////////////// Has One Through
+
+Route::get('has_one_through',[RelationsController::class , 'getPatientDoctor']);
+
+//////////  Has Many Through
+Route::get('has_many_through',[RelationsController::class , 'getDoctorCountry']);
+
+//task   ==> Has One Through
+Route::get('country_with_doctor',[RelationsController::class , 'getCountryWithDoctor']);
+
+Route::get('country_hospitals',[RelationsController::class , 'getHospitalsCountry']);
+
+
+
 ################## End Relations Routes ##################
 
 
