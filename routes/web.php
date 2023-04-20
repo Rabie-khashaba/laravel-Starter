@@ -18,6 +18,8 @@ use App\Http\Controllers\SocialController;
 |
 */
 
+
+define('PAGINATION_COUNT' , 5);
 Route::get('/', function () {
     return view('welcome');
 
@@ -46,6 +48,9 @@ function(){
         Route::get('delete/{offer_id}' , [CrudController::class , 'delete'])->name('offers.delete');
 
         Route::get('all' , [CrudController::class , 'getAllOffers'])->name('offers.all');
+
+        //local scope
+        Route::get('get_all_inactive_offers' , [CrudController::class , 'getAllInactiveOffers'])->name('offers.all');
     });
 
     Route::get('youtube' , [CrudController::class , 'getVideo'])->middleware('auth');

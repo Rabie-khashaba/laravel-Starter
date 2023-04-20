@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Events\VideoViewer;
 use App\Models\User;
 use App\Models\Video;
+use App\Scopes\OfferScopes;
 use App\Traits\OfferTraits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -152,6 +153,17 @@ class CrudController extends Controller
 
     public function getAllOffers(){
         //LaravelLocalization::getCurrentLocale()    --> current language
+//        $offers = Offer::select(
+//            'id',
+//            'image',
+//            'price',
+//            'name_' . LaravelLocalization::getCurrentLocale() . " as name",
+//            'details_' . LaravelLocalization::getCurrentLocale() . " as details",
+//
+//        )->get(); //return collection of all result
+
+
+        ############## paginate Result
         $offers = Offer::select(
             'id',
             'image',
@@ -159,9 +171,13 @@ class CrudController extends Controller
             'name_' . LaravelLocalization::getCurrentLocale() . " as name",
             'details_' . LaravelLocalization::getCurrentLocale() . " as details",
 
-        )->get(); //return collection
+        )->paginate(PAGINATION_COUNT);
+        //return $offers;
 
-        return view('offers.all',compact('offers'));
+        //return view('offers.all',compact('offers'));
+
+        return view('offers.pagination',compact('offers'));
+
 
     }
 
@@ -239,6 +255,26 @@ class CrudController extends Controller
         event(new VideoViewer($video));    //fire event
         return view('video') -> with('video' , $video);
 
+    }
+
+
+
+    /// inActive Offers
+
+    public function getAllInactiveOffers(){
+        // where  whereNull whereNotNull whereIn
+        //Offer::whereNotNull('details_ar') -> get();
+
+        //return Offer::inactive()->get(); // where('status' , 0);
+
+        //return Offer::inValid()->get(); // where('status',0)->whereNull('details_ar');
+
+        //                           global scope
+        //return  $inactiveOffers = Offer::get();  //all inactive offers
+
+        // how to  remove global scope
+
+        return $offer  = Offer::withoutGlobalScope(OfferScopes::class)->get();
     }
 
 

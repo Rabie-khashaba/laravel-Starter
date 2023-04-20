@@ -20,7 +20,6 @@ class Country extends Model
     }
 
 
-
     public function doctors(){
         return $this -> hasManyThrough('App\Models\Doctor','App\Models\Hospital' , 'country_id','hospital_id','id','id');
     }
