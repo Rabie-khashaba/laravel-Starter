@@ -247,4 +247,23 @@ class RelationsController extends Controller
         return $country -> hospitals ;
     }
 
+    ################ Begin accessor and Mutators ############
+    public function getDoctor(){
+        return $doctors = Doctor::select('id','name','gender')->get();
+
+        //return $doctors;
+
+//        if(isset($doctors) && $doctors->count() > 0)
+//            foreach ($doctors as $doctor){
+//                $doctor->gender = $doctor->gender == 1 ? 'male' : 'female';
+//                //$doctor -> newVal = 'new';
+//            }
+//
+//        return $doctors;
+
+
+    }
+    ################ End accessor and Mutators ############
+
+
 }

@@ -80,7 +80,8 @@ class CrudController extends Controller
         Offer::create([
             'image' => $file_name,
             'name_ar' => $request ->name_ar,
-            'name_en' => $request ->name_en,
+            //'name_en' => strtoupper($request ->name_en), // mutators
+            'name_en' => $request ->name_en, // mutator in model offer
             'price' => $request ->price,
             'details_ar' => $request ->details_ar,
             'details_en' => $request ->details_en,
@@ -172,7 +173,7 @@ class CrudController extends Controller
             'details_' . LaravelLocalization::getCurrentLocale() . " as details",
 
         )->paginate(PAGINATION_COUNT);
-        //return $offers;
+        return $offers;
 
         //return view('offers.all',compact('offers'));
 

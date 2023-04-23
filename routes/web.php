@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\CustomeAuthController;
+use App\Http\Controllers\Collection;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\Relations\RelationsController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ use App\Http\Controllers\SocialController;
 */
 
 
-define('PAGINATION_COUNT' , 5);
+define('PAGINATION_COUNT',5);
 Route::get('/', function () {
     return view('welcome');
 
@@ -164,4 +165,17 @@ Route::get('country_hospitals',[RelationsController::class , 'getHospitalsCountr
 ################## End Relations Routes ##################
 
 
+
+################## Start Accessors & Mutators ##################
+// Accessors & Mutators ==>  get , set
+Route::get('get_accessor',[RelationsController::class , 'getDoctor']); // get data
+################## End Accessors & Mutators ##################
+
+
+
+################### Collection ######
+Route::get('collection' , [Collection::class , 'indexCollection']);
+Route::get('mainCats' , [Collection::class , 'complex']);
+Route::get('main_catsFilter' , [Collection::class , 'complexFilter']);
+Route::get('main_catsTransform' , [Collection::class , 'complexTransform']);
 
